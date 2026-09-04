@@ -42,6 +42,20 @@ app.use((req, res, next) => {
 
 app.use(errorHandler)
 
+const path = require('path');
+
+// 1. Opetetaan Express lukemaan staattiset tiedostot "public"- tai "dist"-kansiosta
+// (OAMK:n pohja saattaa käyttää kumpaa tahansa, varmista kansion nimi projektistasi)
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// 2. Jos käyttäjä menee mille tahansa sivulle (esim. /home tai /about), 
+// palautetaan aina Reactin index.html, jotta React-router toimii
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) { // Älä sotke backendin omia /api-reittejä!
+    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+  }
+});
+
 app.listen(port, () => {  
   console.log(`Server is running on http://localhost:${port}`)
   console.log('Backend hot reload is working!')
