@@ -12,7 +12,9 @@ function App() {
     setError(null)
     
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/`)
+      const foo = `${import.meta.env.VITE_API_URL}/api`
+      console.log(foo)
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api`)
       setData(response.data)
     } catch (err) {
       setError(err.message)
@@ -27,7 +29,7 @@ function App() {
 
   return (
     <>
-      <h1>Docker Sample</h1>
+      <h1>Docker Sample dfdsfds</h1>
       <div className="card">
         {loading && <p>Loading...</p>}
         
